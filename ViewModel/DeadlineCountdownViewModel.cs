@@ -17,6 +17,8 @@ namespace DeadlineCountdown.ViewModel
 
         private static readonly DateTime DEFAULT_DEADLINE = new DateTime(2019, 3, 29, 12, 0, 0);
 
+        private TimeSpan _lastUpdatedTimeSpan;
+
         public DeadlineCountdownViewModel(DateTime? deadline = null)
         {
             _model = new DeadlineCountdownModel(deadline ?? DEFAULT_DEADLINE);
@@ -37,15 +39,22 @@ namespace DeadlineCountdown.ViewModel
 
         private void TimerTickEventHandler(object sender, EventArgs e)
         {
-            OnPropertyChanged(nameof(TimeSpanToDeadline));
+            if (IsDeadlineTimeSpanChanged())
+            {
+                OnPropertyChanged(nameof(TimeSpanToDeadline));
+                _lastUpdatedTimeSpan = TimeSpanToDeadline;
+            }
         }
 
         private void SetupTimer()
         {
-            _timer.Interval = TimeSpan.FromMilliseconds(500);
+            _timer.Interval = TimeSpan.FromMilliseconds(100);
             _timer.Tick += TimerTickEventHandler;
             _timer.Start();
         }
+
+        private bool IsDeadlineTimeSpanChanged() =>
+            _lastUpdatedTimeSpan.TotalSeconds != TimeSpanToDeadline.TotalSeconds;
 
         protected void OnPropertyChanged(string propertyName)
         {
