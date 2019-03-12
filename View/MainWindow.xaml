@@ -16,7 +16,7 @@
     <Grid Background="Black" DataContext="{StaticResource ViewModel}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="{Binding Path=DaysToDeadline, Converter={StaticResource DayConverter}}"
-                       FontSize="46" FontFamily="Microsoft YaHei UI"
+                       FontSize="52" FontFamily="Microsoft YaHei UI"
                        Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding Path=TimeSpanToDeadline, Converter={StaticResource TimeConverter}}"
                        FontSize="124" FontFamily="Microsoft YaHei UI"
