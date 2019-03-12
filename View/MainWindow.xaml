@@ -6,21 +6,25 @@
         xmlns:local="clr-namespace:DeadlineCountdown"
         xmlns:viewModel="clr-namespace:DeadlineCountdown.ViewModel"
         mc:Ignorable="d"
-        Title="Deadline Countdown" Height="450" Width="800">
+        Title="Deadline Countdown" Height="450" Width="800"
+        KeyDown="Window_KeyDown">
     <Window.Resources>
         <viewModel:DeadlineCountdownViewModel x:Key="ViewModel"/>
         <viewModel:TimeConverter x:Key="TimeConverter"/>
         <viewModel:DayConverter x:Key="DayConverter"/>
+        <viewModel:DayColorConverter x:Key="DayColorConverter"/>
     </Window.Resources>
 
     <Grid Background="Black" DataContext="{StaticResource ViewModel}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="{Binding Path=DaysToDeadline, Converter={StaticResource DayConverter}}"
                        FontSize="52" FontFamily="Microsoft YaHei UI"
-                       Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                       Foreground="{Binding Path=DaysToDeadline, Converter={StaticResource DayColorConverter}}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding Path=TimeSpanToDeadline, Converter={StaticResource TimeConverter}}"
-                       FontSize="124" FontFamily="Microsoft YaHei UI"
-                       Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                       FontSize="124" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
+                       Foreground="White"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </Window>

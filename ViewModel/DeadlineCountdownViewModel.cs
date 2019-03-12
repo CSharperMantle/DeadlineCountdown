@@ -1,10 +1,6 @@
 ﻿using DeadlineCountdown.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace DeadlineCountdown.ViewModel
@@ -15,19 +11,17 @@ namespace DeadlineCountdown.ViewModel
 
         private readonly DispatcherTimer _timer = new DispatcherTimer();
 
-        private static readonly DateTime DEFAULT_DEADLINE = new DateTime(2019, 3, 29, 12, 0, 0);
-
         private TimeSpan _lastUpdatedTimeSpan;
 
         public DeadlineCountdownViewModel(DateTime? deadline = null)
         {
-            _model = new DeadlineCountdownModel(deadline ?? DEFAULT_DEADLINE);
+            _model = new DeadlineCountdownModel(deadline);
             SetupTimer();
         }
 
         public DeadlineCountdownViewModel()
         {
-            _model = new DeadlineCountdownModel(DEFAULT_DEADLINE);
+            _model = new DeadlineCountdownModel(null);
             SetupTimer();
         }
 

@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace DeadlineCountdown.ViewModel
 {
-    class DayConverter : IValueConverter
+    class DayColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var builder = new StringBuilder();
-
             if (value is int daysToDeadline)
             {
-                builder.Append(daysToDeadline);
-                if (daysToDeadline <= 1)
+                if (daysToDeadline <= 3)
                 {
-                    builder.Append(" DAY");
+                    return new SolidColorBrush(Colors.Red);
+                }
+                else if (daysToDeadline <= 7)
+                {
+                    return new SolidColorBrush(Colors.Yellow);
                 }
                 else
                 {
-                    builder.Append(" DAYS");
+                    return new SolidColorBrush(Colors.White);
                 }
-                return builder.ToString();
             }
             else
             {
