@@ -13,6 +13,8 @@ namespace DeadlineCountdown.ViewModel
 
         private TimeSpan _lastUpdatedTimeSpan;
 
+        private int _lastUpdatedDays;
+
         public DeadlineCountdownViewModel(DateTime? deadline = null)
         {
             _model = new DeadlineCountdownModel(deadline);
@@ -33,11 +35,8 @@ namespace DeadlineCountdown.ViewModel
 
         private void TimerTickEventHandler(object sender, EventArgs e)
         {
-            if (IsDeadlineTimeSpanChanged())
-            {
-                OnPropertyChanged(nameof(TimeSpanToDeadline));
-                _lastUpdatedTimeSpan = TimeSpanToDeadline;
-            }
+            UpdateTimeSpanLazy();
+            UpdateDaysLazy();
         }
 
         private void SetupTimer()
@@ -47,8 +46,29 @@ namespace DeadlineCountdown.ViewModel
             _timer.Start();
         }
 
+        private void UpdateTimeSpanLazy()
+        {
+            if (IsDeadlineTimeSpanChanged())
+            {
+                OnPropertyChanged(nameof(TimeSpanToDeadline));
+                _lastUpdatedTimeSpan = TimeSpanToDeadline;
+            }
+        }
+
+        private void UpdateDaysLazy()
+        {
+            if (IsDeadlineDaysChanged())
+            {
+                OnPropertyChanged(nameof(DaysToDeadline));
+                _lastUpdatedDays = TimeSpanToDeadline.Days;
+            }
+        }
+
         private bool IsDeadlineTimeSpanChanged() =>
             _lastUpdatedTimeSpan.TotalSeconds != TimeSpanToDeadline.TotalSeconds;
+
+        private bool IsDeadlineDaysChanged() =>
+            _lastUpdatedDays != TimeSpanToDeadline.Days;
 
         protected void OnPropertyChanged(string propertyName)
         {

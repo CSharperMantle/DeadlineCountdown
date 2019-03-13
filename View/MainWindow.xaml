@@ -13,17 +13,52 @@
         <viewModel:TimeConverter x:Key="TimeConverter"/>
         <viewModel:DayConverter x:Key="DayConverter"/>
         <viewModel:DayColorConverter x:Key="DayColorConverter"/>
+        <viewModel:DayFlashConverter x:Key="DayFlashConverter"/>
+        <Storyboard x:Key="FlashStoryboard">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                           RepeatBehavior="Forever">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.8">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Hidden</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+                <DiscreteObjectKeyFrame KeyTime="0:0:1.6">
+                    <DiscreteObjectKeyFrame.Value>
+                        <Visibility>Visible</Visibility>
+                    </DiscreteObjectKeyFrame.Value>
+                </DiscreteObjectKeyFrame>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
 
     <Grid Background="Black" DataContext="{StaticResource ViewModel}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Path=DaysToDeadline, Converter={StaticResource DayConverter}}"
-                       FontSize="52" FontFamily="Microsoft YaHei UI"
+            <TextBlock Name="DaysTextBlock"
+                Text="{Binding Path=DaysToDeadline, Converter={StaticResource DayConverter}}"
+                       FontSize="52" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
                        Foreground="{Binding Path=DaysToDeadline, Converter={StaticResource DayColorConverter}}"
-                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <TextBlock Text="{Binding Path=TimeSpanToDeadline, Converter={StaticResource TimeConverter}}"
-                       FontSize="124" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                       Foreground="White"
+                       VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DaysToDeadline, Converter={StaticResource DayFlashConverter}}" Value="true">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}"/>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock Name="TimeTextBlock"
+                Text="{Binding Path=TimeSpanToDeadline, Converter={StaticResource TimeConverter}}"
+                       FontSize="136" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
+                       Foreground="{Binding Path=DaysToDeadline, Converter={StaticResource DayColorConverter}}"
                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
