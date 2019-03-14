@@ -65,7 +65,7 @@
     <Compile Include="Model\DeadlineCountdownModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\DayColorConverter.cs" />
-    <Compile Include="ViewModel\DayConverter.cs" />
+    <Compile Include="ViewModel\DayStringConverter.cs" />
     <Compile Include="ViewModel\DayFlashConverter.cs" />
     <Compile Include="ViewModel\DeadlineCountdownViewModel.cs" />
     <Compile Include="ViewModel\TimeConverter.cs" />
