@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeadlineCountdown.Model;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -11,11 +12,11 @@ namespace DeadlineCountdown.ViewModel
         {
             if (value is int daysToDeadline)
             {
-                if (daysToDeadline <= 3)
+                if (daysToDeadline <= DeadlineCountdownModel.ALERT_DAYS_TO_DEADLINE)
                 {
                     return new SolidColorBrush(Colors.Red);
                 }
-                else if (daysToDeadline <= 7)
+                else if (daysToDeadline <= DeadlineCountdownModel.WARNING_DAYS_TO_DEADLINE)
                 {
                     return new SolidColorBrush(Colors.Yellow);
                 }
@@ -33,7 +34,7 @@ namespace DeadlineCountdown.ViewModel
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException("Two-way binding is not supported on " +
-                                            nameof(DayConverter));
+                                            nameof(DayStringConverter));
         }
     }
 }

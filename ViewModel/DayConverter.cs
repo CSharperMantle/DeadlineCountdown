@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace DeadlineCountdown.ViewModel
 {
-    class DayConverter : IValueConverter
+    class DayStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -33,7 +33,7 @@ namespace DeadlineCountdown.ViewModel
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException("Two-way binding is not supported on " +
-                                            nameof(DayConverter));
+                                            nameof(DayStringConverter));
         }
     }
 }

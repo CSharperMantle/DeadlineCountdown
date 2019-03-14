@@ -63,6 +63,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\DeadlineCountdownModel.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\DayColorConverter.cs" />
     <Compile Include="ViewModel\DayConverter.cs" />
     <Compile Include="ViewModel\DayFlashConverter.cs" />
